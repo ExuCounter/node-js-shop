@@ -1,0 +1,43 @@
+{{>header}}
+    {{#if home}}
+    <div class="row">
+        {{#each products}}
+            <div class="col-4">
+                <div class='card product-card'>
+                    <div class="product-card__header">
+                        <img src="{{this.image}}" alt="Product Image" class='product-image'>
+                    </div>
+                    <div class='product-card__footer'>
+                        <div class='product-info'>
+                            <p class="product-name">
+                                {{this.name}}
+                            </p>
+                            <span class="product-price">
+                                {{this.price}}
+                            </span>
+                        </div>
+                        <button class="btn-primary">
+                            Change info
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+    {{/if}}
+
+    {{#if edit}}
+        Edit
+    {{/if}}
+
+    {{#if create}}
+        <form action="/create" method="POST" class='d-flex flex-column'>
+            <input type="text" name='productImage' placeholder="Image Link">
+            <input type="text" name='productName' placeholder="Name">
+            <input type="text" name='productPrice' placeholder="Price">
+            <button type='submit'>
+                Submit
+            </button>
+        </form>
+    {{/if}}
+{{>footer}}
