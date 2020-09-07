@@ -20,11 +20,9 @@ app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
 app.use('/static', express.static('public'));
-app.use(urlencodedParser);
+// app.use(urlencodedParser);
 app.use(bodyParser.json());
 app.use(routes);
-
-app.use(express.static(__dirname + '/public'));
 
 app.listen(PORT, () => {
     console.log(`Server listen PORT ${PORT}`);

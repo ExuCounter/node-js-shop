@@ -1,0 +1,16 @@
+.create-form {
+    display: flex;
+    flex-direction: column;
+    max-width: 50rem;
+    margin: 3rem auto;
+    background-color: #842d4e;
+    padding: 2rem;
+}
+
+.create-form input {
+    border: none;
+    margin-bottom: 2rem;
+    padding: 0.7rem 1rem;
+    border-radius: 0.3rem;
+    font-family: 'Montserrat', sans-serif;
+}

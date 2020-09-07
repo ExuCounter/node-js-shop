@@ -1,0 +1,19 @@
+.top-bar {
+    background-color: #842d4e;
+    padding: 20px;
+}
+
+.top-bar ul {
+    margin-left: auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    list-style-type: none;
+}
+
+.top-bar ul li a {
+    color: #FFF !important;
+    font-size: 1.3rem;
+    font-family: "Montserrat", sans-serif;
+    margin: 0px 5px;
+}

@@ -1,43 +1,64 @@
 {{>header}}
-    {{#if home}}
-    <div class="row">
-        {{#each products}}
-            <div class="col-4">
-                <div class='card product-card'>
-                    <div class="product-card__header">
-                        <img src="{{this.image}}" alt="Product Image" class='product-image'>
+
+    <div class="products">
+        <div class="container">
+            {{#if home}}
+            <div class="row">
+                {{#if void}}
+                    <div class='message-alert error'>
+                        <span class="no-products__text message-alert__text">
+                            No Products
+                        </span>
+                        <span class="no-products__tagline message-alert__tagline">
+                            Create your first product ! :)
+                        </span>
                     </div>
-                    <div class='product-card__footer'>
-                        <div class='product-info'>
-                            <p class="product-name">
-                                {{this.name}}
-                            </p>
-                            <span class="product-price">
-                                {{this.price}}
-                            </span>
+                {{else}}
+                    {{#each products}}
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class='card product-card'>
+                                <div class="product-card__header">
+                                    <img src="{{this.image}}" alt="Product Image" class='product-image'>
+                                </div>
+                                <div class='product-card__footer'>
+                                    <div class='product-info'>
+                                        <p class="product-name">
+                                            {{this.name}}
+                                        </p>
+                                        <span class="product-price">
+                                            {{this.price}}$
+                                        </span>
+                                    </div>
+                                    <button>
+                                        Change info
+                                    </button>
+                                </div>
+                            </div>
                         </div>
-                        <button class="btn-primary">
-                            Change info
-                        </button>
-                    </div>
-                </div>
+                    {{/each}}
+                {{/if}}
             </div>
-        {{/each}}
+            <div class='d-flex justify-content'>
+                <a href='/create' class="add-product-btn submit-btn">
+                    Add Product
+                </a>
+            </div>
+            {{/if}}
+
+            {{#if edit}}
+                Edit
+            {{/if}}
+
+            {{#if create}}
+                <form action="/create" method="POST" class='create-form' enctype="multipart/form-data">
+                    <input type="file" name='productImage' placeholder="Image Link" required>
+                    <input type="text" name='productName' placeholder="Name" required>
+                    <input type="number" name='productPrice' placeholder="Price" required>
+                    <button type='submit' class='submit-btn'>
+                        Submit
+                    </button>
+                </form>
+            {{/if}}
+        </div>
     </div>
-    {{/if}}
-
-    {{#if edit}}
-        Edit
-    {{/if}}
-
-    {{#if create}}
-        <form action="/create" method="POST" class='d-flex flex-column'>
-            <input type="text" name='productImage' placeholder="Image Link">
-            <input type="text" name='productName' placeholder="Name">
-            <input type="text" name='productPrice' placeholder="Price">
-            <button type='submit'>
-                Submit
-            </button>
-        </form>
-    {{/if}}
 {{>footer}}

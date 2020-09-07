@@ -1,0 +1,39 @@
+.message-alert {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    box-shadow: 0px 0px 3px 1px #e2e2e2;
+    background: rgb(239, 239, 239);
+    border-radius: 6px;
+    margin-top: 2rem;
+}
+
+.message-alert__text {
+    font-size: 1.7rem;
+    text-align: center;
+    font-style: italic;
+    font-weight: 500;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.message-alert__tagline {
+    font-weight: 400;
+    font-family: 'Montserrat', sans-serif;
+    font-style: italic;
+    margin-top: 0.4rem;
+}
+
+.message-alert.error {
+    background: rgb(195 77 88);
+    color: #FFF;
+}
+
+.message-alert.success {
+    background: rgb(77 195 119);
+    color: #FFF;
+}
+
+.message-alert {}
