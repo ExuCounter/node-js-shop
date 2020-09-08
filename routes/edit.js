@@ -1,6 +1,11 @@
 const express = require('express');
 const fs = require('fs');
+const multer = require('multer');
 const router = express.Router();
+
+const storeFiles = multer({
+    dest: './public/images/products'
+})
 
 router.get('/', (req, res) => {
     res.redirect(301, '/');
@@ -15,19 +20,33 @@ router.get('/:id', (req, res) => {
         let selectedProduct = products.table.find(product => {
             return product.id === id;
         })
-        setTimeout(() => {
-            res.render('index', {
-                edit: true,
-                product: selectedProduct
-            });
-        })
-
+        res.render('index', {
+            edit: true,
+            product: selectedProduct
+        });
         // fs.writeFileSync('./json/product.json', 'utf-8',)
     })
 })
 
-router.post('/edit', (req, res) => {
-
+router.post('/', storeFiles.single('productImage'), (req, res) => {
+    if (!req.body) return res.sendStatus(400);
+    fs.readFile('./json/products.json', (err, data) => {
+        if (err) console.log(err);
+        let products = JSON.parse(data);
+        products.table = products.table.map(product => {
+            return product.id == req.body.productId ? {
+                id: req.body.productId,
+                name: req.body.productName,
+                price: req.body.productPrice,
+                currency: req.body.productCurrency,
+                image: req.file ? req.body.productImagePrevious : req.body.productImagePrevious
+            } : product;
+        })
+        fs.writeFile('./json/products.json', JSON.stringify(products), 'utf-8', err => {
+            if (err) throw err;
+            res.redirect(301, '/');
+        })
+    })
 })
 
 module.exports = router;

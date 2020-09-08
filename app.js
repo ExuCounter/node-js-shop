@@ -13,15 +13,23 @@ const hbs = expresshbs.create({
     partialsDir: path.join(__dirname + '/views/partials'),
 });
 
+hbs.handlebars.registerHelper('eq', function(v1, v2, options) {
+    if (v1 === v2) {
+        return options.fn(this);
+    }
+    return options.inverse(this);
+});
+
 const app = express();
 const PORT = 3000;
+
+app.use(urlencodedParser);
+app.use(bodyParser.json());
 
 app.engine('hbs', hbs.engine);
 app.set('view engine', 'hbs');
 
 app.use('/static', express.static('public'));
-// app.use(urlencodedParser);
-app.use(bodyParser.json());
 app.use(routes);
 
 app.listen(PORT, () => {

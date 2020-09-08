@@ -1,6 +1,5 @@
 const express = require('express');
 const fs = require('fs');
-const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
 const shortid = require('shortid');
