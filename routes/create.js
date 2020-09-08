@@ -13,7 +13,8 @@ const storeFiles = multer({
 
 router.get('/create', (req, res) => {
     res.render('index', {
-        create: true
+        create: true,
+        title: 'Create Product'
     });
 })
 

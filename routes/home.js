@@ -9,6 +9,7 @@ router.get('/', (req, res) => {
                 console.log(err);
 
                 res.render('index', {
+                    title: 'Products',
                     home: true,
                     void: true
                 });
@@ -18,6 +19,7 @@ router.get('/', (req, res) => {
                     product.price = new Intl.NumberFormat('en-US', { style: 'currency', currency: `${product.currency.toUpperCase()}` }).format(product.price);
                 })
                 res.render('index', {
+                    title: 'Products',
                     void: false,
                     home: true,
                     products: data.table

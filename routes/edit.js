@@ -22,6 +22,7 @@ router.get('/:id', (req, res) => {
             return product.id === id;
         })
         res.render('index', {
+            title: `Edit Product | ${selectedProduct.name}`,
             edit: true,
             product: selectedProduct
         });

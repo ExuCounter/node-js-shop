@@ -17,6 +17,7 @@ router.get('/:id', (req, res) => {
         })
 
         res.render('index', {
+            title: selectedProduct.name + ' | View',
             view: true,
             product: selectedProduct
         });
