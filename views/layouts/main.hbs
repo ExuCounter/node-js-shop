@@ -29,9 +29,6 @@
                                             <span class="product-price">
                                                 {{this.price}}
                                             </span>
-                                            <span class="product-price__currency">
-                                                {{this.currency}}
-                                            </span>
                                         </div>
                                     </div>
                                     <div class='d-flex'>
@@ -56,7 +53,7 @@
             {{/if}}
 
             {{#if edit}}
-                <form action="/create" method="POST" class='edit-form' enctype="multipart/form-data">
+                <form action="/edit" method="POST" class='edit-form' enctype="multipart/form-data">
                     <div class='edit-form__row form__head'>
                         <h3>Edit Product</h3>
                     </div>
@@ -71,12 +68,12 @@
                             </span>
                         </div>
                         <div class='edit-form__row form__row'>
-                            <input type="text" name='productName' placeholder="Name" required>
+                            <input type="text" name='productName' placeholder="Name" value="{{product.name}}" required>
                         </div>
                         <div class='edit-form__row form__row'>
-                            <input type="number" name='productPrice' placeholder="Price" required>
+                            <input type="number" name='productPrice' placeholder="Price" value={{product.price}} required>
                             <select name="productCurrency">
-                                <option value="usd" selected>$</option>
+                                <option value="usd">$</option>
                                 <option value="rus">&#x20bd;</option>
                                 <option value="uah">&#8372;</option>
                             </select>

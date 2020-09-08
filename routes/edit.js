@@ -15,12 +15,19 @@ router.get('/:id', (req, res) => {
         let selectedProduct = products.table.find(product => {
             return product.id === id;
         })
-        console.log(selectedProduct)
-    })
+        setTimeout(() => {
+            res.render('index', {
+                edit: true,
+                product: selectedProduct
+            });
+        })
 
-    res.render('index', {
-        edit: true
-    });
+        // fs.writeFileSync('./json/product.json', 'utf-8',)
+    })
+})
+
+router.post('/edit', (req, res) => {
+
 })
 
 module.exports = router;

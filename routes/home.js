@@ -14,8 +14,9 @@ router.get('/', (req, res) => {
                 });
             } else {
                 data = JSON.parse(data);
-                console.log(data.table);
-
+                data.table.map(product => {
+                    product.price = new Intl.NumberFormat('en-US', { style: 'currency', currency: `${product.currency.toUpperCase()}` }).format(product.price);
+                })
                 res.render('index', {
                     void: false,
                     home: true,

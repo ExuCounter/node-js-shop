@@ -9,6 +9,7 @@
     background: rgb(239, 239, 239);
     border-radius: 6px;
     margin-top: 2rem;
+    margin-bottom: 2rem;
 }
 
 .message-alert__text {
