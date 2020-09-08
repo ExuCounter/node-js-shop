@@ -1,0 +1,21 @@
+/* Submit Button */
+
+.submit-btn {
+    border: none;
+    border-radius: 0.3rem;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-style: italic;
+    padding: 0.7rem;
+    font-size: 1.45rem;
+    background: rgb(239, 239, 239);
+    color: #252525;
+}
+
+
+/* Add Product Button */
+
+.add-product-btn {
+    margin: 3.5rem auto 2rem;
+    padding: 1.1rem 2.4rem;
+}

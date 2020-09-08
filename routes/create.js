@@ -3,10 +3,11 @@ const fs = require('fs');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const path = require('path');
+const shortid = require('shortid');
 const router = express.Router();
 
 const storeFiles = multer({
-    dest: './images/uploads'
+    dest: './public/images/products'
 })
 
 router.get('/create', (req, res) => {
@@ -17,34 +18,35 @@ router.get('/create', (req, res) => {
 
 router.post('/create', storeFiles.single('productImage'), (req, res) => {
     if (!req.body) return res.sendStatus(400);
-    console.log(JSON.stringify(req.file));
-    if (path.extname(req.file.originalname).toLowerCase() === ".png") {
-        const tempPath = req.file.path;
-        const newPath = path.join(__dirname, '../', '/images/uploads/image.png');
-
-        fs.rename(tempPath, newPath, err => {
-            if (err) {
-                res
-                    .status(500)
-                    .contentType("text/plain")
-                    .end("Oops! Something went wrong!");
-            } else {
-                res
-                    .status(200)
-                    .contentType("text/plain")
-                    .end("File uploaded!");
-            }
+    let productId = shortid.generate();
+    const tempImagePath = req.file.path;
+    const imagePath = path.join(__dirname, '../', `/public/images/products/${productId+'.'+req.file.mimetype.substr(6)}`);
+    let imagePathBase = path.basename(imagePath);
+    console.log(imagePathBase);
+    // Change image location //
+    if (req.file.mimetype.startsWith('image')) {
+        fs.rename(tempImagePath, imagePath, err => {
+            if (err) throw err;
+            console.log('Image upload successfull');
         })
-    }
-})
+    } else {
+        fs.unlink(tempImagePath, err => {
+            if (err) throw err;
+        })
+        var placeholderImage = fs.createReadStream(`./public/images/products/placeholder.jpg`);
+        var productImage = fs.createWriteStream(`./public/images/products/${productId}.jpg`);
 
-router.post('/create', (req, res) => {
-    if (!req.body) return res.sendStatus(400);
+        placeholderImage.pipe(productImage);
+        imagePathBase = `${productId}.jpg`;
+    }
     let product = {
-        image: req.body.productImage,
+        id: productId,
+        image: imagePathBase,
         name: req.body.productName,
         price: req.body.productPrice
     }
+
+    // Update JSON Products file
     fs.readFile('./json/products.json', 'utf-8', (err, data) => {
         if (err || !data) {
             console.log(data);
@@ -53,7 +55,7 @@ router.post('/create', (req, res) => {
             };
             products.table.push(product);
             let json = JSON.stringify(products);
-            fs.writeFile('./json/products.json', json, 'utf-8', err => {
+            fs.writeFileSync('./json/products.json', json, 'utf-8', err => {
                 if (err) throw err;
             })
         } else {
@@ -63,13 +65,13 @@ router.post('/create', (req, res) => {
                 let products = JSON.parse(data);
                 products.table.push(product);
                 let json = JSON.stringify(products);
-                fs.writeFile('./json/products.json', json, 'utf-8', err => {
+                fs.writeFileSync('./json/products.json', json, 'utf-8', err => {
                     if (err) throw err;
                 })
             })
         }
     })
-    res.redirect(302, '/');
+    res.redirect(301, '/');
 })
 
 module.exports = router;

@@ -1,6 +1,6 @@
 {{>header}}
 
-    <div class="products">
+    <section class="products">
         <div class="container">
             {{#if home}}
             <div class="row">
@@ -18,7 +18,7 @@
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class='card product-card'>
                                 <div class="product-card__header">
-                                    <img src="{{this.image}}" alt="Product Image" class='product-image'>
+                                    <img src="/static/images/products/{{this.image}}" alt="Product Image" class='product-image'>
                                 </div>
                                 <div class='product-card__footer'>
                                     <div class='product-info'>
@@ -51,14 +51,36 @@
 
             {{#if create}}
                 <form action="/create" method="POST" class='create-form' enctype="multipart/form-data">
-                    <input type="file" name='productImage' placeholder="Image Link" required>
+                    <input type="file" class='d-none' id='product-image-input' name='productImage' placeholder="Image Link">
+                    <div class='upload-image-div'>
+                        <a href='javascript:void(0)' class="product-image-button">
+                            Upload Product Image
+                        </a>
+                        <span class="uploaded-file-span">
+                            
+                        </span>
+                    </div>
                     <input type="text" name='productName' placeholder="Name" required>
                     <input type="number" name='productPrice' placeholder="Price" required>
                     <button type='submit' class='submit-btn'>
                         Submit
                     </button>
                 </form>
+
+                <script>
+                    let productImageInput = document.getElementById('product-image-input');
+                    let uploadedFileSpan = document.querySelector('.uploaded-file-span');
+                    let productImageButton = document.querySelector('.product-image-button');
+
+                    productImageButton.addEventListener('click', ()=>{
+                        productImageInput.click()
+                    })
+
+                    productImageInput.addEventListener('input', ()=>{
+                        uploadedFileSpan.innerHTML = `${productImageInput.files[0].name}`;
+                    })
+                </script>
             {{/if}}
         </div>
-    </div>
+    </section>
 {{>footer}}

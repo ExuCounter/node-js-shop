@@ -8,9 +8,34 @@
 }
 
 .create-form input {
-    border: none;
     margin-bottom: 2rem;
+}
+
+.create-form input,
+.product-image-button {
+    border: none;
     padding: 0.7rem 1rem;
     border-radius: 0.3rem;
     font-family: 'Montserrat', sans-serif;
+    background: rgb(239, 239, 239);
+    color: #252525;
+}
+
+.product-image-button {
+    text-align: center;
+    font-style: italic;
+}
+
+.upload-image-div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.uploaded-file-span {
+    color: #FFF;
+    font-style: italic;
+    text-align: center;
+    display: block;
+    margin: 0 auto;
 }
