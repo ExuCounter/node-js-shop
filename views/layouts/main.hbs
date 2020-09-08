@@ -25,13 +25,23 @@
                                         <p class="product-name">
                                             {{this.name}}
                                         </p>
-                                        <span class="product-price">
-                                            {{this.price}}$
-                                        </span>
+                                        <div class='d-flex align-items-center'>
+                                            <span class="product-price">
+                                                {{this.price}}
+                                            </span>
+                                            <span class="product-price__currency">
+                                                {{this.currency}}
+                                            </span>
+                                        </div>
                                     </div>
-                                    <button>
-                                        Change info
-                                    </button>
+                                    <div class='d-flex'>
+                                        <a href='/view/{{this.id}}'>
+                                            View Product
+                                        </a>
+                                        <a href='/edit/{{this.id}}'>
+                                            Change Info
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -46,25 +56,72 @@
             {{/if}}
 
             {{#if edit}}
-                Edit
+                <form action="/create" method="POST" class='edit-form' enctype="multipart/form-data">
+                    <div class='edit-form__row form__head'>
+                        <h3>Edit Product</h3>
+                    </div>
+                    <div class='form__body'>
+                        <input type="file" class='d-none' id='product-image-input' name='productImage' placeholder="Image Link">
+                        <div class='edit-form__row form__row upload-image-div'>
+                            <a href='javascript:void(0)' class="product-image-button">
+                                Change Product Image
+                            </a>
+                            <span class="uploaded-file-span">
+                                
+                            </span>
+                        </div>
+                        <div class='edit-form__row form__row'>
+                            <input type="text" name='productName' placeholder="Name" required>
+                        </div>
+                        <div class='edit-form__row form__row'>
+                            <input type="number" name='productPrice' placeholder="Price" required>
+                            <select name="productCurrency">
+                                <option value="usd" selected>$</option>
+                                <option value="rus">&#x20bd;</option>
+                                <option value="uah">&#8372;</option>
+                            </select>
+                        </div>
+                        <div class='d-flex'>
+                            <button type='submit' class='submit-btn'>
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+                </form>
             {{/if}}
 
             {{#if create}}
                 <form action="/create" method="POST" class='create-form' enctype="multipart/form-data">
-                    <input type="file" class='d-none' id='product-image-input' name='productImage' placeholder="Image Link">
-                    <div class='upload-image-div'>
-                        <a href='javascript:void(0)' class="product-image-button">
-                            Upload Product Image
-                        </a>
-                        <span class="uploaded-file-span">
-                            
-                        </span>
+                    <div class='edit-form__row form__head'>
+                        <h3>Create Product</h3>
                     </div>
-                    <input type="text" name='productName' placeholder="Name" required>
-                    <input type="number" name='productPrice' placeholder="Price" required>
-                    <button type='submit' class='submit-btn'>
-                        Submit
-                    </button>
+                    <div class='form__body'>
+                        <input type="file" class='d-none' id='product-image-input' name='productImage' placeholder="Image Link">
+                        <div class='create-form__row form__row upload-image-div'>
+                            <a href='javascript:void(0)' class="product-image-button">
+                                Upload Product Image
+                            </a>
+                            <span class="uploaded-file-span">
+                                
+                            </span>
+                        </div>
+                        <div class='create-form__row form__row'>
+                            <input type="text" name='productName' placeholder="Name" required>
+                        </div>
+                        <div class='create-form__row form__row'>
+                            <input type="number" name='productPrice' placeholder="Price" required>
+                            <select name="productCurrency">
+                                <option value="usd" selected>$</option>
+                                <option value="rus">&#x20bd;</option>
+                                <option value="uah">&#8372;</option>
+                            </select>
+                        </div>
+                        <div class='d-flex'>
+                            <button type='submit' class='submit-btn'>
+                                Submit
+                            </button>
+                        </div>
+                    </div>
                 </form>
 
                 <script>

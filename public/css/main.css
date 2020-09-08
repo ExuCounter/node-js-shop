@@ -11,10 +11,23 @@ a {
     color: inherit !important;
 }
 
-input,
-textarea,
-button {
-    outline: none;
+input:hover,
+input:active,
+input:visited,
+input:focus,
+textarea:hover,
+textarea:active,
+textarea:visited,
+textarea:focus,
+button:hover,
+button:active,
+button:visited,
+button:focus,
+select:hover,
+select:active,
+select:visited,
+select:focus {
+    outline: solid 0px #842d4e;
 }
 
 html {
@@ -29,7 +42,7 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1120px;
     padding: 0px 15px;
 }
 

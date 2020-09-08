@@ -19,12 +19,20 @@ router.get('/create', (req, res) => {
 router.post('/create', storeFiles.single('productImage'), (req, res) => {
     if (!req.body) return res.sendStatus(400);
     let productId = shortid.generate();
+    let formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: `${req.body.productCurrency.toUpperCase()}`,
+        minimumFractionDigits: 2
+    });
+
     const tempImagePath = req.file.path;
     const imagePath = path.join(__dirname, '../', `/public/images/products/${productId+'.'+req.file.mimetype.substr(6)}`);
     let imagePathBase = path.basename(imagePath);
+
     console.log(imagePathBase);
-    // Change image location //
-    if (req.file.mimetype.startsWith('image')) {
+
+    // Change image location if its image ( not another .ext file/name ) //
+    if (req.file.mimetype.startsWith('image') && (req.file.mimetype.endsWith('png') || req.file.mimetype.endsWith('jpg') || req.file.mimetype.endsWith('jpeg'))) {
         fs.rename(tempImagePath, imagePath, err => {
             if (err) throw err;
             console.log('Image upload successfull');
@@ -43,7 +51,7 @@ router.post('/create', storeFiles.single('productImage'), (req, res) => {
         id: productId,
         image: imagePathBase,
         name: req.body.productName,
-        price: req.body.productPrice
+        price: formatter.format(req.body.productPrice)
     }
 
     // Update JSON Products file
