@@ -1,6 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const multer = require('multer');
+const { updateImage } = require('../helpers/updateImage');
 const router = express.Router();
 
 const storeFiles = multer({
@@ -39,7 +40,7 @@ router.post('/', storeFiles.single('productImage'), (req, res) => {
                 name: req.body.productName,
                 price: req.body.productPrice,
                 currency: req.body.productCurrency,
-                image: req.file ? req.body.productImagePrevious : req.body.productImagePrevious
+                image: req.file == undefined ? req.body.productImagePrevious : updateImage(req, res, req.body.productId)
             } : product;
         })
         fs.writeFile('./json/products.json', JSON.stringify(products), 'utf-8', err => {
