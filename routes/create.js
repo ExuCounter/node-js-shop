@@ -39,8 +39,9 @@ router.post('/create', storeFiles.single('productImage'), (req, res) => {
             };
             products.table.push(product);
             let json = JSON.stringify(products);
-            fs.writeFileSync('./json/products.json', json, 'utf-8', err => {
+            fs.writeFile('./json/products.json', json, 'utf-8', err => {
                 if (err) throw err;
+                res.redirect(301, '/');
             })
         } else {
             fs.readFile('./json/products.json', 'utf-8', (err, data) => {
@@ -49,13 +50,13 @@ router.post('/create', storeFiles.single('productImage'), (req, res) => {
                 let products = JSON.parse(data);
                 products.table.push(product);
                 let json = JSON.stringify(products);
-                fs.writeFileSync('./json/products.json', json, 'utf-8', err => {
+                fs.writeFile('./json/products.json', json, 'utf-8', err => {
                     if (err) throw err;
+                    res.redirect(301, '/');
                 })
             })
         }
     })
-    res.redirect(301, '/');
 })
 
 module.exports = router;

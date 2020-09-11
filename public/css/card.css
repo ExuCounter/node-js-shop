@@ -20,16 +20,16 @@
 }
 
 .product-card .product-info {
-    padding: 1rem;
+    padding: 1.4rem;
     display: flex;
     justify-content: space-between;
-    font-size: 1.6rem;
+    font-size: 1.8rem;
 }
 
 .product-card .product-info .product-price {
     color: #71004e;
     font-style: italic;
-    font-size: 1.45rem;
+    font-size: 1.75rem;
 }
 
 .product-card__footer a {
@@ -37,12 +37,13 @@
     width: 50%;
     box-shadow: none;
     border: none;
-    padding: 1rem 1rem;
-    font-weight: 300;
+    padding: 1.5rem 1rem;
+    font-weight: 500;
     background-color: #842d4e;
     font-style: italic;
     color: #FFF !important;
     text-align: center;
+    font-size: 1.7rem;
 }
 
 .product-card__footer a:nth-child(1) {

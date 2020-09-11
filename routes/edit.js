@@ -46,7 +46,7 @@ router.post('/', storeFiles.single('productImage'), (req, res) => {
         })
         fs.writeFile('./json/products.json', JSON.stringify(products), 'utf-8', err => {
             if (err) throw err;
-            res.redirect(301, '/');
+            res.redirect(302, `/view/${req.body.productId}`);
         })
     })
 })

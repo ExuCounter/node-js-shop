@@ -3,30 +3,27 @@ const fs = require('fs');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    setTimeout(() => {
-        fs.readFile('./json/products.json', { encoding: 'utf8' }, function(err, data) {
-            if (err || !data) {
-                console.log(err);
+    let products = fs.readFileSync('./json/products.json', 'utf-8');
+    products = JSON.parse(products);
+    if (products.table.length == 0) {
+        console.log('No Products yet');
 
-                res.render('index', {
-                    title: 'Products',
-                    home: true,
-                    void: true
-                });
-            } else {
-                data = JSON.parse(data);
-                data.table.map(product => {
-                    product.price = new Intl.NumberFormat('en-US', { style: 'currency', currency: `${product.currency.toUpperCase()}` }).format(product.price);
-                })
-                res.render('index', {
-                    title: 'Products',
-                    void: false,
-                    home: true,
-                    products: data.table
-                });
-            }
+        res.render('index', {
+            title: 'Products',
+            home: true,
+            void: true
         });
-    }, 0)
+    } else {
+        products.table.map(product => {
+            product.price = new Intl.NumberFormat('en-US', { style: 'currency', currency: `${product.currency.toUpperCase()}` }).format(product.price);
+        })
+        res.render('index', {
+            title: 'Products',
+            void: false,
+            home: true,
+            products: products.table
+        });
+    }
 })
 
 module.exports = router;
